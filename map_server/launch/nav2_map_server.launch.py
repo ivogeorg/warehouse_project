@@ -7,7 +7,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    map_file_name = 'turtle_eight_columns.yaml'
+    map_file_name = 'warehouse_map_sim.yaml'
     map_file_path = os.path.join(get_package_share_directory('map_server'), 'config', map_file_name)
 
     map_server_node = Node(
