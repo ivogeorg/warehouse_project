@@ -36,7 +36,7 @@ def generate_launch_description():
 
     ocupancy_grid_node = Node(
             package='cartographer_ros',
-            executable='occupancy_grid_node',
+            executable='cartographer_occupancy_grid_node', # from Discord
             output='screen',
             name='occupancy_grid_node',
             parameters=[{'use_sim_time': True}],
