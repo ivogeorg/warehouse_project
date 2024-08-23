@@ -4,8 +4,8 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+# from launch.actions import DeclareLaunchArgument
+# from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
@@ -19,7 +19,7 @@ def generate_launch_description():
             name='map_server',
             output='screen',
             parameters=[{'use_sim_time': True}, 
-                        {'yaml_filename':map_file_path}])
+                        {'map_file':map_file_path}])
 
     amcl_config_file_name = 'amcl_config.yaml'
     amcl_config_file_path = os.path.join(get_package_share_directory(pkg_name), 'config', amcl_config_file_name)
