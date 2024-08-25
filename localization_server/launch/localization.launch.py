@@ -15,7 +15,7 @@ def generate_launch_description():
     map_file_arg = DeclareLaunchArgument('map_file', default_value=map_file_name)
     map_file_f = LaunchConfiguration('map_file')
 
-    # TODO: Get the map file from the package that generated it
+    # TODO: Get the map file from the package that generated it (map_server)
     map_file_name = 'warehouse_map_sim.yaml'
     map_file_path = os.path.join(get_package_share_directory(pkg_name), 'config', map_file_name)
 
