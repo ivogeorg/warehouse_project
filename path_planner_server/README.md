@@ -12,14 +12,14 @@ Solution:
 2. Executable is `behavior_server`
 3. Recoveries are behaviors now (in yaml config file):
    ```
-    recovery_plugins: ["spin", "backup", "wait"]
-    spin:
-      plugin: "nav2_behaviors/Spin"
-    backup:
-      plugin: "nav2_behaviors/BackUp"
-    wait:
-      plugin: "nav2_behaviors/Wait"
-  ```
+   recovery_plugins: ["spin", "backup", "wait"]
+   spin:
+     plugin: "nav2_behaviors/Spin"
+   backup:
+     plugin: "nav2_behaviors/BackUp"
+   wait:
+     plugin: "nav2_behaviors/Wait"
+   ```
 
 2. Error in path planning:
    1. The two wheel links are not in the TF tree in Rviz2 but don't appear in the Gazebo model either.
