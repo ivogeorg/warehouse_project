@@ -34,7 +34,9 @@ def generate_launch_description():
             package='nav2_controller',
             executable='controller_server',
             output='screen',
-            parameters=[controller_yaml])
+            parameters=[controller_yaml],
+            remappings=[('/cmd_vel', '/robot/cmd_vel')
+            )
 
     # manager of recovery behaviors node
     recovery_config_file_name = 'recovery.yaml'
