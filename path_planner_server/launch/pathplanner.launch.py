@@ -35,15 +35,14 @@ def generate_launch_description():
             executable='controller_server',
             output='screen',
             parameters=[controller_yaml],
-            remappings=[('/cmd_vel', '/robot/cmd_vel')
-            )
+            remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
 
     # manager of recovery behaviors node
     recovery_config_file_name = 'recovery.yaml'
     recovery_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, recovery_config_file_name])
     recovery_svr_node = Node(
-            package='nav2_recoveries',
-            executable='recoveries_server',
+            package='nav2_behaviors',
+            executable='behavior_server',
             name='recoveries_server',
             parameters=[recovery_yaml],
             output='screen')
