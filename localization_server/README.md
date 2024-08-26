@@ -20,7 +20,7 @@ Result:
 1. A map parameter `map_file`, to differentiate between simulator and real-robot lab maps.
    1. This parameter only provides the filename.
    2. The `nav2_...` package parameter requires the full path to the map.
-   3. Will require _substitutions_ as used in this [launch file](https://github.com/ivogeorg/attach_shelf/blob/b511e89921b100bcaad62dd5f4291d8397f8be35/launch/attach_to_shelf.launch.py#L11).
+   3. Will require _substitutions_ as used in this [launch file](https://github.com/ivogeorg/attach_shelf/blob/b511e89921b100bcaad62dd5f4291d8397f8be35/launch/attach_to_shelf.launch.py#L11), and as shown in this [tutorial](https://docs.ros.org/en/humble/Tutorials/Intermediate/Launch/Using-Substitutions.html).
 2. The maps should not be copied from one stage to another. They should be sourced from the `map_server`, the package that generated them.
 
 #### Implementation notes
