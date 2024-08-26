@@ -25,7 +25,7 @@ def generate_launch_description():
             executable='planner_server',
             name='planner_server',
             output='screen',
-            parameters=[nav2_yaml])
+            parameters=[{'use_sim_time': True}, nav2_yaml])
 
     # controller node
     controller_config_file_name = 'controller.yaml'
@@ -34,7 +34,7 @@ def generate_launch_description():
             package='nav2_controller',
             executable='controller_server',
             output='screen',
-            parameters=[controller_yaml],
+            parameters=[{'use_sim_time': True}, controller_yaml],
             remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
 
     # manager of behavior behaviors node
@@ -43,8 +43,8 @@ def generate_launch_description():
     behavior_svr_node = Node(
             package='nav2_behaviors',
             executable='behavior_server',
-            name='recoveries_server',
-            parameters=[behavior_yaml],
+            name='behavior_server',
+            parameters=[{'use_sim_time': True}, behavior_yaml],
             output='screen')
 
     # behavior tree navigator node
@@ -55,7 +55,7 @@ def generate_launch_description():
             executable='bt_navigator',
             name='bt_navigator',
             output='screen',
-            parameters=[bt_navigator_yaml])
+            parameters=[{'use_sim_time': True}, bt_navigator_yaml])
             
     # lifecycle manager node (note: unique name)
     lifecycle_manager_node = Node(
@@ -67,7 +67,7 @@ def generate_launch_description():
                         {'autostart': True},
                         {'node_names': ['planner_server', 
                                         'controller_server',
-                                        'recoveries_server',
+                                        'behavior_server',
                                         'bt_navigator']}]
     )
     
