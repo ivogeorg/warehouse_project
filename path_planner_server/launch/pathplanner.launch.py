@@ -37,14 +37,14 @@ def generate_launch_description():
             parameters=[controller_yaml],
             remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
 
-    # manager of recovery behaviors node
-    recovery_config_file_name = 'recovery.yaml'
-    recovery_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, recovery_config_file_name])
-    recovery_svr_node = Node(
+    # manager of behavior behaviors node
+    behavior_config_file_name = 'behavior.yaml'
+    behavior_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, behavior_config_file_name])
+    behavior_svr_node = Node(
             package='nav2_behaviors',
             executable='behavior_server',
             name='recoveries_server',
-            parameters=[recovery_yaml],
+            parameters=[behavior_yaml],
             output='screen')
 
     # behavior tree navigator node
@@ -74,7 +74,7 @@ def generate_launch_description():
     return LaunchDescription([
         planner_node,
         controller_node,
-        recovery_svr_node,
+        behavior_svr_node,
         bt_nav_node,
         lifecycle_manager_node
     ])
