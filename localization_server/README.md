@@ -15,7 +15,7 @@ Result:
 | --- | --- |
 | ![Position](assets/position_gazebo.png) | ![Localization](assets/localization_rviz2.png) |   
 
-#### TODO
+#### Parameter `map_file`
 
 1. A map parameter `map_file`, to differentiate between simulator and real-robot lab maps.
    1. This parameter only provides the filename.
