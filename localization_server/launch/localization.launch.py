@@ -4,25 +4,31 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument, LogInfo
+from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
+
 
 def generate_launch_description():
     pkg_name = 'localization_server'
 
-    map_file_name = 'warehouse_map_sim.yaml'
-    map_file_arg = DeclareLaunchArgument('map_file', default_value=map_file_name)
+    map_svr_pkg_name = 'map_server'
+    config_dir_name = 'config'
+    default_map_file_name = 'warehouse_map_sim.yaml'
+
+    # Capture command line or launch file argument 'map_file'
+    #
+    # Note: 
+    # This is only the file name and not the full path, so
+    # construct the path and then pass to the 'yaml_filename'
+    # parameter of the 'map_server' executable.
+    map_file_arg = DeclareLaunchArgument(
+                        'map_file', 
+                        default_value=TextSubstitution(text=default_map_file_name))
     map_file_f = LaunchConfiguration('map_file')
+    map_file_path = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), config_dir_name, map_file_f])
 
-    # TODO: Get the map file from the package that generated it (map_server)
-    map_file_name = 'warehouse_map_sim.yaml'
-    map_file_path = os.path.join(get_package_share_directory(pkg_name), 'config', map_file_name)
-
-    # TODO: Only the filename is passed from the command line but the parameter should
-    #       be the full path name. Create an argument the value of which will be used
-    #       to construct the expected parameter value.
-    # NOTE: This will require a substitution!!!
     map_server_node = Node(
             package='nav2_map_server',
             executable='map_server',
@@ -32,7 +38,8 @@ def generate_launch_description():
                         {'yaml_filename':map_file_path}])
 
     amcl_config_file_name = 'amcl_config.yaml'
-    amcl_config_file_path = os.path.join(get_package_share_directory(pkg_name), 'config', amcl_config_file_name)
+    amcl_config_dir_name = 'config'
+    amcl_config_file_path = PathJoinSubstitution([FindPackageShare(pkg_name), amcl_config_dir_name, amcl_config_file_name])
     amcl_node = Node(
             package='nav2_amcl',
             executable='amcl',
@@ -51,6 +58,8 @@ def generate_launch_description():
     )
     
     return LaunchDescription([
+        map_file_arg,
+        LogInfo(msg=["Map file path: ", map_file_path]),
         map_server_node,
         amcl_node,
         lifecycle_manager_node
