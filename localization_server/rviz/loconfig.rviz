@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /RobotModel1
         - /RobotModel1/Description Topic1
         - /PoseWithCovariance1/Topic1
         - /ParticleCloud1/Topic1
@@ -355,9 +354,9 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.822646141052246
-        Y: -0.6784936189651489
-        Z: 0.5751773118972778
+        X: -0.7798320055007935
+        Y: -0.8135864734649658
+        Z: 0.5744994282722473
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -366,7 +365,7 @@ Visualization Manager:
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.572733402252197
+      Yaw: 4.682734966278076
     Saved: ~
 Window Geometry:
   Displays:
