@@ -6,11 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /Map1
-        - /Map1/Status1
         - /Map1/Topic1
+        - /TF1/Frames1
         - /TF1/Tree1
-        - /LaserScan1
         - /LaserScan1/Topic1
       Splitter Ratio: 0.6994680762290955
     Tree Height: 553
@@ -210,16 +208,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.687795639038086
+      Distance: 12.843451499938965
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.7415456771850586
-        Y: -0.6779404878616333
-        Z: -0.0019174345070496202
+        X: 0.46242383122444153
+        Y: -0.546754777431488
+        Z: -0.0005035523208789527
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
