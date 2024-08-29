@@ -41,13 +41,13 @@ source install/setup.bash
 
 | Parameter | Location | Check | Simulator | Real robot | Documentation | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| `cmd_vel` | ROS2 topic | `ros2 topic list | grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | | |
-| `odom` | ROS2 topic | `ros2 topic list | grep odom`, `ros2 topic echo /odom` | `odom` | | | |
+| `cmd_vel` | ROS2 topic | `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | | |
+| `odom` | ROS2 topic | `ros2 topic list \| grep odom`, `ros2 topic echo /odom` | `odom` | | | |
 | `odom` | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `odom` | | | |
 | Robot base link | Rviz2 | Rviz2, `ros2 run tf2_tools view_frames` | `robot_base_footprint` | | | |
-| Map topic | ROS2 topic | Rviz2, `ros2 topic list | grep map`, `ros2 topic info map -v` | `map` (`cartographer_occupancy_grid_node`) | | | |
+| Map topic | ROS2 topic | Rviz2, `ros2 topic list \| grep map`, `ros2 topic info map -v` | `map` (`cartographer_occupancy_grid_node`) | | | |
 | Map frame | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `map` (`cartographer_occupancy_grid_node`) | | | Assuming the publisher of the `map` topic |
-| Occupancy grid node | Package under `cartographer_ros`, [launch file](cartographer_slam/launch/cartographer.launch.py) | `sudo find / -name "cartographer_ros" | `cartographer_occupancy_grid_node` | | | |
+| Occupancy grid node | Package under `cartographer_ros`, [launch file](cartographer_slam/launch/cartographer.launch.py) | `sudo find / -name "cartographer_ros"` | `cartographer_occupancy_grid_node` | | | |
 | `map_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"map"` | `"map"` | | |
 | `tracking_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"robot_base_footprint"` | `"robot_base_footprint"` | | |
 | `published_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
