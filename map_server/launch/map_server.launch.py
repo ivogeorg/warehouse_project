@@ -15,7 +15,7 @@ def generate_launch_description():
     config_dir_name = 'config'
     default_map_file_name = 'warehouse_map_sim.yaml'
 
-    # Capture command line or launch file argument 'map_file'
+    # Capture command-line or launch-file argument 'map_file'
     #
     # Note: 
     # This is only the file name and not the full path, so

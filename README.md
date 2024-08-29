@@ -12,6 +12,8 @@ source install/setup.bash
 
 #### Task 1 - Mapping
 
+##### Task 1 - Launching
+
 1. _(personal note)_ The `odom` frame in the real warehouse lab is `robot_odom`, while the `odom` topic is unchanged. Make sure that in [`cartographer_slam/config/cartographer.lua`](cartographer_slam/config/cartographer.lua) the following lines are correct:
    ```
    published_frame = "robot_odom",
@@ -22,7 +24,11 @@ source install/setup.bash
 4. Move around the robot with the joystick.
 5. `ros2 launch map_server map_server.launch.py map_file:=warehouse_map_real.yaml`
 
-**_Note_:** In the `map_server` test, the originally created map will be used, not the one that might have been created in the `cartographer_slam` test.
+##### Task 1 - Notes
+
+1. In the `map_server` test, the originally created map will be used, not the one that might have been accumulated during the `cartographer_slam` test.
+2. In the cartographer phase, the `map` topic and `map` frame are published by `occupancy_grid_node`.
+3. In the map server phase, the `map` topic is published by `map_server`. No TF frames are published by `map_server`.
 
 #### Task 2 - Localization
 
@@ -51,5 +57,5 @@ source install/setup.bash
 | `map_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"map"` | `"map"` | | |
 | `tracking_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"robot_base_footprint"` | `"robot_base_footprint"` | | |
 | `published_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
-|  odom_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
-
+| `odom_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
+| `'use_sim_time'` | Param in launch files | Files: [map](map_server/launch/map_server.launch.py), [loc](localization_server/launch/localization.launch.py), [path](path_planner_server/launch/pathplanner.launch.py) | `True` | `False` | | |
