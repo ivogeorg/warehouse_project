@@ -39,8 +39,8 @@ source install/setup.bash
 
 #### Configuration
 
-| Parameter | File(s) | Simulator | Real robot | Documentation |
-| --- | --- | --- | --- | --- | 
-| `odom` frame | | | |
-| `odom` topic | | | |
+| Parameter | Location | Check | Simulator | Real robot | Documentation |
+| --- | --- | --- | --- | --- | --- |
+| `odom` frame | | | | |
+| `odom` topic | | | | |
 
