@@ -36,3 +36,9 @@ source install/setup.bash
 2. In Rviz2, set a **2D Pose Estimate**
 3. `ros2 launch path_planner_server pathplanner.launch.py`
 4. In Rviz2, set a **2D Goal Pose**
+
+#### Configuration
+
+| Parameter | File (link) | Simulator | Real robot | Doc (link) |
+| --- | --- | --- | --- | --- | 
+
