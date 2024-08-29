@@ -12,7 +12,7 @@ source install/setup.bash
 
 #### Task 1 - Mapping
 
-1. _(personal note)_ The `odom` topic in the real warehouse lab is `robot_odom`. Make sure that in [`cartographer_slam/config/cartographer.lua`](cartographer_slam/config/cartographer.lua) the following lines are correct:
+1. _(personal note)_ The `odom` frame in the real warehouse lab is `robot_odom`, while the `odom` topic is unchanged. Make sure that in [`cartographer_slam/config/cartographer.lua`](cartographer_slam/config/cartographer.lua) the following lines are correct:
    ```
    published_frame = "robot_odom",
    odom_frame = "robot_odom",
@@ -39,6 +39,8 @@ source install/setup.bash
 
 #### Configuration
 
-| Parameter | File (link) | Simulator | Real robot | Doc (link) |
+| Parameter | File(s) | Simulator | Real robot | Documentation |
 | --- | --- | --- | --- | --- | 
+| `odom` frame | | | |
+| `odom` topic | | | |
 
