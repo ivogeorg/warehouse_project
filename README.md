@@ -12,7 +12,7 @@ source install/setup.bash
 
 #### Task 1 - Mapping
 
-##### Task 1 - Launching
+##### _Task 1 - Launching_
 
 1. _(personal note)_ The `odom` frame in the real warehouse lab is `robot_odom`, while the `odom` topic is unchanged. Make sure that in [`cartographer_slam/config/cartographer.lua`](cartographer_slam/config/cartographer.lua) the following lines are correct:
    ```
@@ -24,7 +24,7 @@ source install/setup.bash
 4. Move around the robot with the joystick.
 5. `ros2 launch map_server map_server.launch.py map_file:=warehouse_map_real.yaml`
 
-##### Task 1 - Notes
+##### _Task 1 - Notes_
 
 1. In the `map_server` test, the originally created map will be used, not the one that might have been accumulated during the `cartographer_slam` test.
 2. In the cartographer phase, the `map` topic and `map` frame are published by `occupancy_grid_node`.
@@ -32,9 +32,16 @@ source install/setup.bash
 
 #### Task 2 - Localization
 
+##### _Task 2 - Launching_
+
 1. `ros2 launch localization_server localization.launch.py map_file:=warehouse_map_real.yaml`
 2. In Rviz2, set a **2D Pose Estimate**
 3. `ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/robot/cmd_vel`
+
+##### _Task 2 - Notes_
+
+1. `map_server` publishes the `map` topic. `amcl` subscribes to `map`.
+2. `amcl` publishes the `map` TF frame, after an initial pose (**2D Pose Estimate**) is specified.
 
 #### Task 3 - Navigation
 
@@ -59,3 +66,6 @@ source install/setup.bash
 | `published_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
 | `odom_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
 | `'use_sim_time'` | Param in launch files | Files: [map](map_server/launch/map_server.launch.py), [loc](localization_server/launch/localization.launch.py), [path](path_planner_server/launch/pathplanner.launch.py) | `True` | `False` | | |
+| `base_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"robot_base_footprint"` |`"robot_base_footprint"` | | | 
+| `global_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"map"` | `"map"` | | | 
+| `odom_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"odom"` | `"robot_odom"` | |
