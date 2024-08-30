@@ -71,6 +71,8 @@ source install/setup.bash
 | `odom_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"odom"` | `"robot_odom"` | |
 | `global_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `map` | `map` | |
 | `robot_base_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | 
+| `vel_cmd` topic | ROS2 topic | `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | | |
+| `robot_description` topic | ROS2 topic | `ros2 topic list \| grep robot_description` | `/rb1_robot/robot_description` | | |
 
 
 #### `'use_sim_time'`
