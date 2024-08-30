@@ -69,3 +69,20 @@ source install/setup.bash
 | `base_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"robot_base_footprint"` |`"robot_base_footprint"` | | | 
 | `global_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"map"` | `"map"` | | | 
 | `odom_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"odom"` | `"robot_odom"` | |
+| `global_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `map` | `map` | |
+| `robot_base_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | 
+
+
+#### `'use_sim_time'`
+
+1. A ROS parameter.
+2. Specified in config files as
+   ```
+   ros__parameters:
+     use_sim_time: True
+   ```
+3. Specified in `parameters` for node launch descriptions. _**Question:** Does the launch description `parameters` value override the config file value?_
+4. List parameters with `ros2 param list`. Shown by node.
+5. Check as follows `ros2 param get /position_controller use_sim_time` where `position_controller` is a node and `use_sime_time` is a parameter of the node.  
+
+**Conclusion:** Config files take precedence over launch description parameter specifications. If specified in the config file, changing the value in the node launch description has no effect. Conversely, if the parameter is not specified in the config file, the launch description value is set.

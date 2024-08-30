@@ -9,6 +9,9 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    # SIMULATOR <======OR=====> REAL ROBOT LAB
+    use_sim_time = True
+
     # Local variables
     pkg_name = 'localization_server'
     map_svr_pkg_name = 'map_server'
@@ -28,7 +31,7 @@ def generate_launch_description():
             executable='rviz2',
             output='screen',
             name='rviz_node',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-d', rviz_config_dir_f])
 
     # Map server map_file argument 
@@ -51,10 +54,14 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': use_sim_time}, 
                         {'yaml_filename':map_file_path}])
 
     # AMCL node
+    # Note: 
+    # If a node has a config file with ROS parameters, those values will
+    # override the values of the same parameters specified in the launch
+    # file. For example, 'use_sim_time'.      
     amcl_config_file_name = 'amcl_config.yaml'
     amcl_config_dir_name = 'config'
     amcl_config_file_path = PathJoinSubstitution([FindPackageShare(pkg_name), amcl_config_dir_name, amcl_config_file_name])
@@ -63,7 +70,7 @@ def generate_launch_description():
             executable='amcl',
             name='amcl',
             output='screen',
-            parameters=[amcl_config_file_path])
+            parameters=[{'use_sim_time': use_sim_time}, amcl_config_file_path]) # See note above re: 'use_sim_time'
 
     # Lifecycle manager node
     lifecycle_manager_node = Node(
@@ -71,7 +78,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_mapper',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
     )
