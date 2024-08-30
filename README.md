@@ -85,4 +85,4 @@ source install/setup.bash
 4. List parameters with `ros2 param list`. Shown by node.
 5. Check as follows `ros2 param get /position_controller use_sim_time` where `position_controller` is a node and `use_sime_time` is a parameter of the node.  
 
-**Conclusion:** Config files take precedence over launch description parameter specifications. If specified in the config file, changing the value in the node launch description has no effect. Conversely, if the parameter is not specified in the config file, the launch description value is set.
+**Conclusion:** Config files take precedence over launch description parameter specifications. If specified in the config file, changing the value in the node launch description has no effect. Conversely, if the parameter is not specified in the config file, it is set to the launch description value.
