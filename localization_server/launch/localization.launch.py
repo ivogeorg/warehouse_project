@@ -11,6 +11,9 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    # SIMULATOR <======OR=====> REAL ROBOT LAB
+    use_sim_time = True
+
     pkg_name = 'localization_server'
 
     map_svr_pkg_name = 'map_server'
@@ -34,7 +37,7 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': use_sim_time}, 
                         {'yaml_filename':map_file_path}])
 
     amcl_config_file_name = 'amcl_config.yaml'
@@ -52,7 +55,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_mapper',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
     )
