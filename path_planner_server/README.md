@@ -185,3 +185,5 @@ edge [style=invis];
 
 1. Robot Model Description Topic: `/robot_description`. ROS2 doesn't report any publisher! Same with `/rb1_robot/robot_description`.
 2. The 3 missing frames don't appear at all.
+
+```

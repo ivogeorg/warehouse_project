@@ -7,17 +7,12 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /TF1/Tree1/map1
-        - /TF1/Tree1/map1/odom1
-        - /TF1/Tree1/map1/odom1/robot_base_footprint1
-        - /TF1/Tree1/map1/odom1/robot_base_footprint1/robot_base_link1
         - /RobotModel1/Description Topic1
         - /PoseWithCovariance1/Topic1
         - /ParticleCloud1/Topic1
         - /Path1/Topic1
         - /GlobalCostmap1
         - /LocalCostmap1
-        - /LocalCostmap1/Status1
       Splitter Ratio: 0.39477303624153137
     Tree Height: 558
   - Class: rviz_common/Selection
