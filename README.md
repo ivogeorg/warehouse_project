@@ -55,9 +55,9 @@ source install/setup.bash
 | Parameter | Location | Check | Simulator | Real robot | Documentation | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | `cmd_vel` | ROS2 topic | `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | | |
-| `odom` | ROS2 topic | `ros2 topic list \| grep odom`, `ros2 topic echo /odom` | `odom` | | | |
-| `odom` | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `odom` | | | |
-| Robot base link | Rviz2 | Rviz2, `ros2 run tf2_tools view_frames` | `robot_base_footprint` | | | |
+| `odom` | ROS2 topic | `ros2 topic list \| grep odom`, `ros2 topic echo /odom` | `odom` | `odom` | | |
+| `odom` | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `odom` | `robot_odom` | | |
+| Robot base link/frame | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `robot_base_footprint` | `robot_base_footprint` | | |
 | Map topic | ROS2 topic | Rviz2, `ros2 topic list \| grep map`, `ros2 topic info map -v` | `map` (`cartographer_occupancy_grid_node`) | | | |
 | Map frame | TF frame | Rviz2, `ros2 run tf2_tools view_frames` | `map` (`cartographer_occupancy_grid_node`) | | | Assuming the publisher of the `map` topic |
 | Occupancy grid node | Package under `cartographer_ros`, [launch file](cartographer_slam/launch/cartographer.launch.py) | `sudo find / -name "cartographer_ros"` | `cartographer_occupancy_grid_node` | | | |
@@ -65,14 +65,26 @@ source install/setup.bash
 | `tracking_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"robot_base_footprint"` | `"robot_base_footprint"` | | |
 | `published_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
 | `odom_frame` | Param in [`cartographer.lua`](cartographer_slam/config/cartographer.lua) | File | `"odom"` | `"robot_odom"` | | |
-| `'use_sim_time'` | Param in launch files | Files: [map](map_server/launch/map_server.launch.py), [loc](localization_server/launch/localization.launch.py), [path](path_planner_server/launch/pathplanner.launch.py) | `True` | `False` | | |
+| `'use_sim_time'` | Local variable and param in launch and deleted in config files (see [here](#use_sim_time)) | Files: [map](map_server/launch/map_server.launch.py), [loc](localization_server/launch/localization.launch.py), [path](path_planner_server/launch/pathplanner.launch.py) | `True` | `False` | | |
 | `base_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"robot_base_footprint"` |`"robot_base_footprint"` | | | 
 | `global_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"map"` | `"map"` | | | 
 | `odom_frame_id` | Param in [`amcl_config.yaml`](localization_server/config/amcl_config.yaml) | File | `"odom"` | `"robot_odom"` | |
-| `global_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `map` | `map` | |
-| `robot_base_frame` | Param in [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | 
-| `vel_cmd` topic | ROS2 topic | `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | | |
-| `robot_description` topic | ROS2 topic | `ros2 topic list \| grep robot_description` | `/rb1_robot/robot_description` | | |
+| `global_frame` | Param under `global_costmap` section of [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `map` | `map` | |
+| `robot_base_frame` | Param under `global_costmap` section of [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | 
+| `vel_cmd` topic | ROS2 topic | Rviz2, `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | `cmd_vel` | | |
+| `robot_description` topic | ROS2 topic | Rviz2, `ros2 topic list \| grep robot_description` | `/rb1_robot/robot_description` | | |
+| `odom_topic` | Param under `ros__parameters` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `"odom"` | `"odom"` | | |
+| `global_frame` | Param under `local_costmap` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `map` | `map` | | |
+| `robot_base_frame` | Param under `local_costmap` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | |
+| `cmd_vel` remapping | Node argument in [`pathplanner.launch.py`](path_planner_server/launch/pathplanner.launch.py) | `/diffbot_base_controller/cmd_vel_unstamped` | **None** | | |
+| `local_frame` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `odom` | `robot_odom` | | |
+| `global_frame` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `map` | `map` | | |
+| `robot_base_frame` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | |
+| `global_frame` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `map` | `map` | | |
+| `robot_base_frame` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | |
+| `odom_topic` | Param under `ros__parameters` section in [`behavior.yaml`](path_planner_server/config/behavior.yaml) | File | `/odom` | `/odom` | | |
+
+
 
 
 #### `'use_sim_time'`

@@ -11,6 +11,9 @@ from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
 def generate_launch_description():
+    # SIMULATOR <======OR=====> REAL ROBOT LAB
+    use_sim_time = True
+
     map_svr_pkg_name = 'map_server'
     config_dir_name = 'config'
     default_map_file_name = 'warehouse_map_sim.yaml'
@@ -32,7 +35,7 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': use_sim_time}, 
                         {'yaml_filename':map_file_path}])
 
     lifecycle_manager_node = Node(
@@ -40,7 +43,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_mapper',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': True},
                         {'node_names': ['map_server']}])
 
@@ -55,7 +58,7 @@ def generate_launch_description():
             executable='rviz2',
             output='screen',
             name='rviz_node',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-d', rviz_config_dir_f])
 
     
