@@ -25,6 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'static_send_tf_base_link = path_planner_server.static_send_tf_base_link:main',
         ],
     },
 )

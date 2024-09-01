@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /TF1
         - /TF1/Frames1
         - /TF1/Tree1
         - /RobotModel1/Description Topic1
@@ -80,6 +81,8 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        base_link:
+          Value: true
         map:
           Value: true
         odom:
@@ -113,6 +116,8 @@ Visualization Manager:
         map:
           odom:
             robot_base_footprint:
+              base_link:
+                {}
               robot_base_link:
                 robot_evelator_base_link:
                   {}
@@ -376,7 +381,7 @@ Visualization Manager:
       Pitch: 1.0620293617248535
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.722726821899414
+      Yaw: 4.717726707458496
     Saved: ~
 Window Geometry:
   Displays:

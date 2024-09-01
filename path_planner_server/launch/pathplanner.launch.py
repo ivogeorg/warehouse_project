@@ -17,6 +17,14 @@ def generate_launch_description():
     pkg_share_name = FindPackageShare(pkg_name)
     config_dir_name = 'config'
 
+    # `base_link` publisher
+    static_tf_base_link_node = Node(
+            package='path_planner_server',
+            executable='static_send_tf_base_link',
+            output='screen',
+            name='static_send_tf_base_link',
+            parameters=[{'use_sim_time': True}])
+
     # planner node
     planner_config_file_name = 'planner_server.yaml'
     nav2_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, planner_config_file_name])
@@ -72,6 +80,7 @@ def generate_launch_description():
     )
     
     return LaunchDescription([
+        static_tf_base_link_node,
         planner_node,
         controller_node,
         behavior_svr_node,
