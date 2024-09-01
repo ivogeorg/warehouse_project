@@ -12,9 +12,29 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_name = 'localization_server'
-
-    map_svr_pkg_name = 'map_server'
+    pkg_share_name = FindPackageShare(pkg_name)
     config_dir_name = 'config'
+
+    # Rviz2 config file path argument
+    rviz_config_file_name = 'loconfig.rviz'
+    rviz_config_dir_name = 'rviz'
+    rviz_config_dir = PathJoinSubstitution([pkg_share_name, rviz_config_dir_name, rviz_config_file_name])
+    rviz_config_dir_arg = DeclareLaunchArgument('d', default_value=rviz_config_dir)
+    rviz_config_dir_f = LaunchConfiguration('d')
+
+    # Rviz2 node
+    rviz_node = Node(
+            package='rviz2',
+            executable='rviz2',
+            output='screen',
+            name='rviz_node',
+            parameters=[{'use_sim_time': True}],
+            arguments=['-d', rviz_config_dir_f])
+
+
+    # map serve node
+    map_svr_pkg_name = 'map_server'
+    map_config_dir_name = 'config'
     default_map_file_name = 'warehouse_map_sim.yaml'
 
     # Capture command line or launch file argument 'map_file'
@@ -27,7 +47,7 @@ def generate_launch_description():
                         'map_file', 
                         default_value=TextSubstitution(text=default_map_file_name))
     map_file_f = LaunchConfiguration('map_file')
-    map_file_path = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), config_dir_name, map_file_f])
+    map_file_path = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), map_config_dir_name, map_file_f])
 
     map_server_node = Node(
             package='nav2_map_server',
@@ -37,9 +57,10 @@ def generate_launch_description():
             parameters=[{'use_sim_time': True}, 
                         {'yaml_filename':map_file_path}])
 
+    # localization node (amcl)
     amcl_config_file_name = 'amcl_config.yaml'
     amcl_config_dir_name = 'config'
-    amcl_config_file_path = PathJoinSubstitution([FindPackageShare(pkg_name), amcl_config_dir_name, amcl_config_file_name])
+    amcl_config_file_path = PathJoinSubstitution([pkg_share_name, amcl_config_dir_name, amcl_config_file_name])
     amcl_node = Node(
             package='nav2_amcl',
             executable='amcl',
@@ -47,10 +68,11 @@ def generate_launch_description():
             output='screen',
             parameters=[amcl_config_file_path])
 
+    # lifecycle manager node
     lifecycle_manager_node = Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
-            name='lifecycle_manager_mapper',
+            name='lifecycle_manager_localization',
             output='screen',
             parameters=[{'use_sim_time': True},
                         {'autostart': True},
@@ -58,6 +80,8 @@ def generate_launch_description():
     )
     
     return LaunchDescription([
+        rviz_config_dir_arg,
+        rviz_node,
         map_file_arg,
         LogInfo(msg=["Map file path: ", map_file_path]),
         map_server_node,

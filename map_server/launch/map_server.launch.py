@@ -11,10 +11,12 @@ from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    map_svr_pkg_name = 'map_server'
+    pkg_name = 'map_server'
+    map_svr_pkg_name = pkg_name
     config_dir_name = 'config'
     default_map_file_name = 'warehouse_map_sim.yaml'
 
+    # map server node
     # Capture command line or launch file argument 'map_file'
     #
     # Note: 
@@ -35,6 +37,7 @@ def generate_launch_description():
             parameters=[{'use_sim_time': True}, 
                         {'yaml_filename':map_file_path}])
 
+    # lifecycle manager node
     lifecycle_manager_node = Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
@@ -44,6 +47,7 @@ def generate_launch_description():
                         {'autostart': True},
                         {'node_names': ['map_server']}])
 
+    # rviz node
     rviz_config_file_name = 'config.rviz'
     rviz_config_dir_name = 'rviz'
     rviz_config_dir = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), rviz_config_dir_name, rviz_config_file_name])
@@ -60,10 +64,10 @@ def generate_launch_description():
 
     
     return LaunchDescription([
+        rviz_config_dir_arg,
+        rviz_node,
         map_file_arg,
         LogInfo(msg=["Map file path: ", map_file_path]),
         map_server_node,
         lifecycle_manager_node,
-        rviz_config_dir_arg,
-        rviz_node
     ])
