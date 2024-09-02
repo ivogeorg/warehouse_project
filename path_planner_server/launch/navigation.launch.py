@@ -12,7 +12,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     # SIMULATOR <======OR=====> REAL ROBOT LAB
-    use_sim_time = True
+    use_sim_time = False
     
     pkg_name = 'path_planner_server'
     pkg_share_name = FindPackageShare(pkg_name)
@@ -95,7 +95,8 @@ def generate_launch_description():
             executable='controller_server',
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}, controller_yaml],
-            remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
+            # remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')]
+            )
 
     # manager of behavior behaviors node
     behavior_config_file_name = 'behavior.yaml'

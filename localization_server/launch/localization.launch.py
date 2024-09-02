@@ -12,7 +12,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # SIMULATOR <======OR=====> REAL ROBOT LAB
-    use_sim_time = True
+    use_sim_time = False
     
     pkg_name = 'localization_server'
     pkg_share_name = FindPackageShare(pkg_name)
