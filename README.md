@@ -72,7 +72,7 @@ source install/setup.bash
 | `global_frame` | Param under `global_costmap` section of [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `map` | `map` | |
 | `robot_base_frame` | Param under `global_costmap` section of [`planner_server.yaml`](path_planner_server/config/planner_server.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | 
 | `vel_cmd` topic | ROS2 topic | Rviz2, `ros2 topic list \| grep cmd_vel` | `/diffbot_base_controller/cmd_vel_unstamped` | `cmd_vel` | | |
-| `robot_description` topic | ROS2 topic | Rviz2, `ros2 topic list \| grep robot_description` | `/rb1_robot/robot_description` | | |
+| `robot_description` topic | ROS2 topic | Rviz2, `ros2 topic list \| grep robot_description` | Confusing, sometimes it's `/robot_description`, sometimes `/rb1_robot/robot_description`, and neither has a publisher when checking with `ros2 topic info /topic_name -v` | `/rb1_robot/robot_description` | |
 | `odom_topic` | Param under `ros__parameters` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `"odom"` | `"odom"` | | |
 | `global_frame` | Param under `local_costmap` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `map` | `map` | | |
 | `robot_base_frame` | Param under `local_costmap` section in [`controller.yaml`](path_planner_server/config/controller.yaml) | File | `robot_base_footprint` | `robot_base_footprint` | | |
