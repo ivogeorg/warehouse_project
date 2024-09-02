@@ -11,6 +11,9 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    # SIMULATOR <======OR=====> REAL ROBOT LAB
+    use_sim_time = True
+    
     pkg_name = 'localization_server'
     pkg_share_name = FindPackageShare(pkg_name)
     config_dir_name = 'config'
@@ -28,7 +31,7 @@ def generate_launch_description():
             executable='rviz2',
             output='screen',
             name='rviz_node',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-d', rviz_config_dir_f])
 
 
@@ -54,7 +57,7 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': use_sim_time}, 
                         {'yaml_filename':map_file_path}])
 
     # localization node (amcl)
@@ -74,7 +77,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_localization',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
     )

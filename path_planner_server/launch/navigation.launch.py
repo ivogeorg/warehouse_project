@@ -11,6 +11,9 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # SIMULATOR <======OR=====> REAL ROBOT LAB
+    use_sim_time = True
+    
     pkg_name = 'path_planner_server'
     pkg_share_name = FindPackageShare(pkg_name)
     config_dir_name = 'config'
@@ -21,7 +24,7 @@ def generate_launch_description():
             executable='static_send_tf_base_link',
             output='screen',
             name='static_send_tf_base_link',
-            parameters=[{'use_sim_time': True}])
+            parameters=[{'use_sim_time': use_sim_time}])
 
     # Rviz2 config file path argument
     rviz_config_file_name = 'paconfig.rviz'
@@ -36,7 +39,7 @@ def generate_launch_description():
             executable='rviz2',
             output='screen',
             name='rviz_node',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-d', rviz_config_dir_f])
 
     # map server node
@@ -60,7 +63,7 @@ def generate_launch_description():
             executable='map_server',
             name='map_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, 
+            parameters=[{'use_sim_time': use_sim_time}, 
                         {'yaml_filename':map_file_path}])
 
     # localization node (amcl)
@@ -72,7 +75,7 @@ def generate_launch_description():
             executable='amcl',
             name='amcl',
             output='screen',
-            parameters=[{'use_sim_time': True}, amcl_config_file_path])
+            parameters=[{'use_sim_time': use_sim_time}, amcl_config_file_path])
 
     # planner node
     planner_config_file_name = 'planner_server.yaml'
@@ -82,7 +85,7 @@ def generate_launch_description():
             executable='planner_server',
             name='planner_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, nav2_yaml])
+            parameters=[{'use_sim_time': use_sim_time}, nav2_yaml])
 
     # controller node
     controller_config_file_name = 'controller.yaml'
@@ -91,7 +94,7 @@ def generate_launch_description():
             package='nav2_controller',
             executable='controller_server',
             output='screen',
-            parameters=[{'use_sim_time': True}, controller_yaml],
+            parameters=[{'use_sim_time': use_sim_time}, controller_yaml],
             remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
 
     # manager of behavior behaviors node
@@ -101,7 +104,7 @@ def generate_launch_description():
             package='nav2_behaviors',
             executable='behavior_server',
             name='behavior_server',
-            parameters=[{'use_sim_time': True}, behavior_yaml],
+            parameters=[{'use_sim_time': use_sim_time}, behavior_yaml],
             output='screen')
 
     # behavior tree navigator node
@@ -112,7 +115,7 @@ def generate_launch_description():
             executable='bt_navigator',
             name='bt_navigator',
             output='screen',
-            parameters=[{'use_sim_time': True}, bt_navigator_yaml])
+            parameters=[{'use_sim_time': use_sim_time}, bt_navigator_yaml])
             
     # lifecycle manager node (note: unique name)
     lifecycle_manager_node = Node(
@@ -120,7 +123,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_navigation',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': True},
                         {'node_names': ['map_server',
                                         'amcl',
