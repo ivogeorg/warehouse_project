@@ -72,7 +72,7 @@ def generate_launch_description():
             executable='amcl',
             name='amcl',
             output='screen',
-            parameters=[amcl_config_file_path])
+            parameters=[{'use_sim_time': True}, amcl_config_file_path])
 
     # planner node
     planner_config_file_name = 'planner_server.yaml'

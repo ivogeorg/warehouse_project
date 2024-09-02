@@ -15,13 +15,64 @@ def generate_launch_description():
     pkg_share_name = FindPackageShare(pkg_name)
     config_dir_name = 'config'
 
-    # `base_link` publisher
+    # `base_link` broadcaster node
     static_tf_base_link_node = Node(
             package='path_planner_server',
             executable='static_send_tf_base_link',
             output='screen',
             name='static_send_tf_base_link',
             parameters=[{'use_sim_time': True}])
+
+    # Rviz2 config file path argument
+    rviz_config_file_name = 'paconfig.rviz'
+    rviz_config_dir_name = 'rviz'
+    rviz_config_dir = PathJoinSubstitution([pkg_share_name, rviz_config_dir_name, rviz_config_file_name])
+    rviz_config_dir_arg = DeclareLaunchArgument('d', default_value=rviz_config_dir)
+    rviz_config_dir_f = LaunchConfiguration('d')
+
+    # Rviz2 node
+    rviz_node = Node(
+            package='rviz2',
+            executable='rviz2',
+            output='screen',
+            name='rviz_node',
+            parameters=[{'use_sim_time': True}],
+            arguments=['-d', rviz_config_dir_f])
+
+    # map server node
+    map_svr_pkg_name = 'map_server'
+    default_map_file_name = 'warehouse_map_sim.yaml'
+
+    # Capture command line or launch file argument 'map_file'
+    #
+    # Note: 
+    # This is only the file name and not the full path, so
+    # construct the path and then pass to the 'yaml_filename'
+    # parameter of the 'map_server' executable.
+    map_file_arg = DeclareLaunchArgument(
+                        'map_file', 
+                        default_value=TextSubstitution(text=default_map_file_name))
+    map_file_f = LaunchConfiguration('map_file')
+    map_file_path = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), config_dir_name, map_file_f])
+
+    map_server_node = Node(
+            package='nav2_map_server',
+            executable='map_server',
+            name='map_server',
+            output='screen',
+            parameters=[{'use_sim_time': True}, 
+                        {'yaml_filename':map_file_path}])
+
+    # localization node (amcl)
+    amcl_config_file_name = 'amcl_config.yaml'
+    amcl_config_dir_name = 'config'
+    amcl_config_file_path = PathJoinSubstitution([pkg_share_name, amcl_config_dir_name, amcl_config_file_name])
+    amcl_node = Node(
+            package='nav2_amcl',
+            executable='amcl',
+            name='amcl',
+            output='screen',
+            parameters=[{'use_sim_time': True}, amcl_config_file_path])
 
     # planner node
     planner_config_file_name = 'planner_server.yaml'
@@ -33,6 +84,16 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': True}, nav2_yaml])
 
+    # global costmap node
+    global_costmap_config_file_name = 'global_costmap.yaml'
+    global_costmap_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, global_costmap_config_file_name])
+    global_costmap_node = Node(
+            package='nav2_costmap_2d',
+            executable='nav2_costmap_2d',
+            name='global_costmap',
+            output='screen',
+            parameters=[{'use_sim_time': True}, global_costmap_yaml])
+
     # controller node
     controller_config_file_name = 'controller.yaml'
     controller_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, controller_config_file_name])
@@ -42,6 +103,16 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': True}, controller_yaml],
             remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')])
+
+    # global costmap node
+    local_costmap_config_file_name = 'global_costmap.yaml'
+    local_costmap_yaml = PathJoinSubstitution([pkg_share_name, config_dir_name, local_costmap_config_file_name])
+    local_costmap_node = Node(
+            package='nav2_costmap_2d',
+            executable='nav2_costmap_2d',
+            name='local_costmap',
+            output='screen',
+            parameters=[{'use_sim_time': True}, local_costmap_yaml])
 
     # manager of behavior behaviors node
     behavior_config_file_name = 'behavior.yaml'
@@ -67,20 +138,31 @@ def generate_launch_description():
     lifecycle_manager_node = Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
-            name='lifecycle_manager_pathplanner',
+            name='lifecycle_manager_navigation',
             output='screen',
             parameters=[{'use_sim_time': True},
                         {'autostart': True},
-                        {'node_names': ['planner_server', 
+                        {'node_names': ['map_server',
+                                        'amcl',
+                                        'planner_server', 
+                                        'global_costmap',
                                         'controller_server',
+                                        'local_costmap',
                                         'behavior_server',
                                         'bt_navigator']}]
     )
     
     return LaunchDescription([
         static_tf_base_link_node,
+        # rviz_config_dir_arg,
+        # rviz_node,
+        map_file_arg,
+        map_server_node,
+        amcl_node,
         planner_node,
+        global_costmap_node,
         controller_node,
+        local_costmap_node,
         behavior_svr_node,
         bt_nav_node,
         lifecycle_manager_node
