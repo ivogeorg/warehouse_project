@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import os
 
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
 from launch.substitutions import LaunchConfiguration, TextSubstitution, PathJoinSubstitution
@@ -48,7 +46,7 @@ def generate_launch_description():
                         {'node_names': ['map_server']}])
 
     # rviz node
-    rviz_config_file_name = 'config.rviz'
+    rviz_config_file_name = 'maconfig.rviz'
     rviz_config_dir_name = 'rviz'
     rviz_config_dir = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), rviz_config_dir_name, rviz_config_file_name])
     rviz_config_dir_arg = DeclareLaunchArgument('d', default_value=rviz_config_dir)
