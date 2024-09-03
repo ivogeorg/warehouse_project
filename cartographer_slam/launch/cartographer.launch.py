@@ -8,10 +8,11 @@ from launch_ros.substitutions import FindPackageShare
 from launch_ros.actions import Node
 
 def generate_launch_description():
+    pkg_name = 'cartographer_slam'
+
     use_sim_time_f = LaunchConfiguration('use_sim_time')
     use_sim_time_arg = DeclareLaunchArgument('use_sim_time', default_value=TextSubstitution(text='True'))
 
-    pkg_name = 'cartographer_slam'
     pkg_share_path = FindPackageShare(pkg_name)
     config_dir_name = 'config'
 
