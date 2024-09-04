@@ -19,25 +19,30 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       colcon build --clean
       source install/setup.bash
       ```
-   2. Cartographer SLAM
+   2. The `use_sim_time` argument:
+      1. **All launch files declare the argument `use_sim_time`**.
+      2. It controls the `'use_sim_time'` node parameter.
+      3. It also controls which config files the nodes will use, for the simulator (`use_sim_time:=true`) or the real-robot lab (`use_sim_time:=false`) environment.
+      4. The default is `true`, that is, for the **simulator** environment.
+   3. Cartographer SLAM
       ```
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch cartographer_slam cartographer.launch.py
       ```
-   3. Map server
+   4. Map server
       ```
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch map_server map_server.launch.py map_file:=warehouse_map_real.yaml
       ```
-   4. Localization server
+   5. Localization server
       ```
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch localization_server localization.launch.py map_file:=warehouse_map_real.yaml
       ```
-   5. Navigation (aka Path planner server)
+   6. Navigation (aka Path planner server)
       ```
       cd ~/ros2_ws
       source install/setup.bash
