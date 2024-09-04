@@ -23,7 +23,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       1. **All launch files declare the argument `use_sim_time`**.
       2. It controls the `'use_sim_time'` node parameter.
       3. It also controls which config files the nodes will use, for the simulator (`use_sim_time:=true`) or the real-robot lab (`use_sim_time:=false`) environment.
-      4. The default is `true`, that is, for the **simulator** environment.
+      4. The default is `true`, that is, for the **simulator** environment. For the **lab**, please add `use_sim_time:=false` to the launch on the command line.
    3. Cartographer SLAM
       ```
       cd ~/ros2_ws
@@ -52,10 +52,10 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
    1. The working implementation is on the branch `path-planning`. Please, do `git checkout` before building and running.
    2. Each of the launches includes an Rviz2 node configured for it.
    3. The Path Planner Server has an integraged launch file called `navigation.launch.py` which includes the `map_server`, `amcl`, `planner_server`, `controller_server`, `behavior_server`, and `bt_navigator` node, along with a lifecycle manager node.
-   4. All launches are configured for the lab including `'use_sim_time': False` and `odom_frame: robot_odom`. Since the config files override the parameters specified in the launch file, the `use_sime_time` has been commented out in the config files so that it can freely be changed for all nodes with a local variable in the launch file.
+   4. All launches are auto-configured for the simulator or the lab depending on the value of the `use_sim_time` argument.
    5. The robot description topic `/robot_description` to which the **Robot Model** item is set in Rviz2 does no longer have a publisher shortly after launch. I suppose that the publisher has broadcast it with _high durability_ and then exited.
-   6. The width of the local costmap has been increased to 4 m to more readily visualize the local costmap colors. It looks a little strange because it doesn't seem to be radial around the robot.
-3. Expected results
+   6. The width of the local costmap has been increased to 2 m by the rule-of-thumb for 4x the size of the robot. The diameter of RB1 is 0.5 m.
+3. Expected results (lab only shown)
    1. Map server
       ![Map](assets/map-server.png)  
    2. Localization server
