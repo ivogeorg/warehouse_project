@@ -1,0 +1,3 @@
+[submodule "attach_shelf"]
+	path = attach_shelf
+	url = https://github.com/ivogeorg/attach_shelf.git
