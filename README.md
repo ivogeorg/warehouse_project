@@ -107,6 +107,10 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       1. Publish once to `/elevator_down` and wait for 3.5 s.
       8. Using the coordinates of `face_shipping_position`, create and publish TF `face_shipping_pose_tf`.
       9. Using the TF between `robot_base_link` and `face_shipping_pose_tf` to back up to `face_shipping_pose_tf`.
+6. Write precision localization function.
+      1. `ros2 service call /reinitialize_global_localization std_srvs/srv/Empty`.
+      2. Rotate +180, -360, +180 or until covariances for x, y, and z fall significantly under 0.1.
+      3. Take `/amcl_pose` and use as initial pose in `navigator.setInitialPose(initial_pose)`.
 
 ##### 2. Required pose parameters
 
