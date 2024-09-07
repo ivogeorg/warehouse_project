@@ -1,0 +1,8 @@
+move_cart_to_ship:
+  ros__parameters:
+    # format [position.x, position.y, orientation.z, orientation.w]
+    init_position: [0.0400, 0.1121, 0.0850, 0.9964]
+    loading_position: [5.5888, -0.0618, -0.7192, 0.6948]
+    face_shipping_position: [2.4501, -0.1236, 0.7494, 0.6621]
+    shipping_position: [2.5062, 1.3838, 0.6914, 0.7225]
+
