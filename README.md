@@ -91,6 +91,87 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
    1. Empty string to `/elevator_up` and waiting for 3.5 seconds.
    2. Empty string to `/elevator_down` and waiting for 3.5 seconds.
    3. `Polygon` to `/local_costmap/footprint`, once when the cart is picked up, and once when it is set down.
+      ```
+      user:~$ ros2 topic info /local_costmap/footprint -v
+      Type: geometry_msgs/msg/Polygon
+      
+      Publisher count: 0
+      
+      Subscription count: 1
+      
+      Node name: local_costmap
+      Node namespace: /local_costmap
+      Topic type: geometry_msgs/msg/Polygon
+      Endpoint type: SUBSCRIPTION
+      GID: 01.0f.55.d3.a6.19.35.9c.01.00.00.00.00.00.41.04.00.00.00.00.00.00.00.00
+      QoS profile:
+        Reliability: BEST_EFFORT
+        History (Depth): UNKNOWN
+        Durability: VOLATILE
+        Lifespan: Infinite
+        Deadline: Infinite
+        Liveliness: AUTOMATIC
+        Liveliness lease duration: Infinite
+      ```  
+      The following is an (x, y) circle not centered anywhere in particular:  
+      ```
+      user:~$ ros2 topic echo /local_costmap/published_footprint
+      header:
+        stamp:
+          sec: 3092
+          nanosec: 594000000
+        frame_id: odom
+      polygon:
+        points:
+        - x: 2.701878786087036
+          y: 0.8789161443710327
+          z: 0.0
+        - x: 2.70664381980896
+          y: 0.7716511487960815
+          z: 0.0
+        - x: 2.7495346069335938
+          y: 0.6840415000915527
+          z: 0.0
+        - x: 2.8226869106292725
+          y: 0.6195142865180969
+          z: 0.0
+        - x: 2.9149646759033203
+          y: 0.5878931283950806
+          z: 0.0
+        - x: 3.0321402549743652
+          y: 0.5913244485855103
+          z: 0.0
+        - x: 3.1197500228881836
+          y: 0.6342150568962097
+          z: 0.0
+        - x: 3.184277057647705
+          y: 0.7073675990104675
+          z: 0.0
+        - x: 3.215898275375366
+          y: 0.7996452450752258
+          z: 0.0
+        - x: 3.2124669551849365
+          y: 0.9168208241462708
+          z: 0.0
+        - x: 3.169576406478882
+          y: 1.0044305324554443
+          z: 0.0
+        - x: 3.096423864364624
+          y: 1.0689576864242554
+          z: 0.0
+        - x: 3.004146099090576
+          y: 1.1005789041519165
+          z: 0.0
+        - x: 2.8869705200195312
+          y: 1.0971475839614868
+          z: 0.0
+        - x: 2.799360990524292
+          y: 1.0542569160461426
+          z: 0.0
+        - x: 2.7348337173461914
+          y: 0.9811043739318848
+          z: 0.0
+      ```  
    4. Keep-out zone filters, one for sim map, and one for lab map. _What configuration can be done here that can be dictated by the value of the `use_sim_time` argument?_
 4. Rewrite `cart_pick_up` service. Main script should contain client.
    1. Action sequence:

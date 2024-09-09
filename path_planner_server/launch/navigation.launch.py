@@ -21,7 +21,9 @@ def generate_launch_description():
     # ========
     # use_sim_time argument (determines simulator vs real lab)
     use_sim_time_f = LaunchConfiguration('use_sim_time')
-    use_sim_time_arg = DeclareLaunchArgument('use_sim_time', default_value=TextSubstitution(text='true'))
+    use_sim_time_arg = DeclareLaunchArgument(
+            'use_sim_time', default_value=TextSubstitution(text='true'),
+            description='config for simulator (true) or lab (false)')
     
     # ====
     # NODE
@@ -74,7 +76,8 @@ def generate_launch_description():
     map_file_f = LaunchConfiguration('map_file')
     map_file_arg = DeclareLaunchArgument(
             'map_file', 
-            default_value=TextSubstitution(text=default_map_file_name))
+            default_value=TextSubstitution(text=default_map_file_name),
+            description='simulator or real lab map file name')
     map_file_path = PathJoinSubstitution([FindPackageShare(map_svr_pkg_name), map_dir_name, map_file_f])
 
     # ====

@@ -1,7 +1,14 @@
 move_cart_to_ship:
   ros__parameters:
-    init_position: [0.0272, 0.1311, -0.0099, 1.0000]
-    loading_position: [4.4079, -0.1370, -0.7175, 0.6965]
-    face_shipping_position: [2.0453, -0.0101, 0.7267, 0.6869]
-    shipping_position: [2.0282, 1.0123, 0.6864, 0.7272]
+    # format [position.x, position.y, orientation.z, orientation.w]
+    init_position: [0.054368, 0.060027, -0.000433, 1.0000]
+    loading_position: [4.472548, -0.187311, -0.694903, 0.719103]
+    face_shipping_position: [1.879749, 0.141987, 0.656541, 0.754290]
+    shipping_position: [1.878660, 1.114233, 0.706215, 0.707997]
+    pick_up_cart_position: [4.486190, -1.298187, -0.669185, 0.743095]
+    footprint_with_cart: '[ [2.5, 0.3], [3.4, 0.3], [3.4, 1.4], [2.5, 1.4] ]' # TODO
+
+
+
+
 
