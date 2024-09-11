@@ -211,4 +211,5 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 7. (`nav2_apps`) Set `Polygon` footprint for robot with and without cart.
 8. (`map_server`) Define keepout zones.
 9. (`attach_shelf`, `nav2_apps`) Consume parameters of different kinds.
+10. (`nav2_apps`) Precise automatic localization.
 
