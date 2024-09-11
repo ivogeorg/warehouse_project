@@ -200,3 +200,14 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 3. `shipping_position`: Robot between the two shelves with the cart and facing the wall (pi/2 rad in world frame).
 4. `face_shipping_position`: Robot at the intersection of the line between `init_position` and `loading_position` and the line through `shipping_position` and parallel to the y-axis. Robot facing the wall (pi/2 rad in world frame).
 
+#### Generalized TODO
+
+1. Compose TFs to lift a relative frame to `map`.
+2. Face the crate straight in.
+3. Broadcast cart-related TFs.
+4. Approach, go under and pick up crate.
+5. Set crate down and back up to global TF.
+6. `BasicNavigator.goToPose` and `BasicNavigator.goThroughPoses`.
+7. Set `Polygon` footprint for robot with and without cart.
+8. Define keepout zones.
+
