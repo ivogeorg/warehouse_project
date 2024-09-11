@@ -202,14 +202,16 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 #### Generalized TODO
 
-1. (`attach_shelf`) Compose TFs to lift a relative frame to `map`.
+1. (`attach_shelf`) Compose TFs to lift a relative frame to the root frame.
 2. (`attach_shelf`) Face the crate straight in.
 3. (`attach_shelf`) Broadcast cart-related TFs.
-4. (`attach_shelf`) Approach, go under and pick up crate.
-5. (`attach_shelf`) Set crate down and back up to global TF.
+4. (`nav2_apps`) `move` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
+4. (`attach_shelf`) Approach, go under and pick up crate (`move`).
+5. (`attach_shelf`) Set crate down and back up to global TF (`move`).
 6. (`nav2_apps`) `BasicNavigator.goToPose` and `BasicNavigator.goThroughPoses`.
 7. (`nav2_apps`) Set `Polygon` footprint for robot with and without cart.
-8. (`map_server`) Define keepout zones.
-9. (`attach_shelf`, `nav2_apps`) Consume parameters of different kinds.
-10. (`nav2_apps`) Precise automatic localization.
+8. (`map_server`) Define keepout zones. Mind the value range [0, 100].
+9. (`attach_shelf`) Consume parameters of different types in C++ `rclcpp::Node`.
+10. (`nav2_apps`) Consume parameters of different types in Python `rclpy::Node`.
+11. (`nav2_apps`) Precise automatic localization.
 
