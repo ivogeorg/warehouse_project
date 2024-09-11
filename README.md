@@ -202,12 +202,13 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 #### Generalized TODO
 
-1. Compose TFs to lift a relative frame to `map`.
-2. Face the crate straight in.
-3. Broadcast cart-related TFs.
-4. Approach, go under and pick up crate.
-5. Set crate down and back up to global TF.
-6. `BasicNavigator.goToPose` and `BasicNavigator.goThroughPoses`.
-7. Set `Polygon` footprint for robot with and without cart.
-8. Define keepout zones.
+1. (`attach_shelf`) Compose TFs to lift a relative frame to `map`.
+2. (`attach_shelf`) Face the crate straight in.
+3. (`attach_shelf`) Broadcast cart-related TFs.
+4. (`attach_shelf`) Approach, go under and pick up crate.
+5. (`attach_shelf`) Set crate down and back up to global TF.
+6. (`nav2_apps`) `BasicNavigator.goToPose` and `BasicNavigator.goThroughPoses`.
+7. (`nav2_apps`) Set `Polygon` footprint for robot with and without cart.
+8. (`map_server`) Define keepout zones.
+9. (`attach_shelf`, `nav2_apps`) Consume parameters of different kinds.
 
