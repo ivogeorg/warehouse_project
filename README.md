@@ -202,8 +202,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 #### Generalized TODO
 
-1. (`attach_shelf`) Compose TFs to lift a relative frame to the root frame.
-2. (`attach_shelf`) Face the crate straight in.
+1. (`attach_shelf`) Face the crate straight in.
 3. (`attach_shelf`) Broadcast cart-related TFs.
 4. (`nav2_apps`) `move` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
 4. (`attach_shelf`) Approach, go under and pick up crate (`move`).
