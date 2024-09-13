@@ -23,11 +23,19 @@ import rclpy
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 
 # RB-1 positions
-rb_1_positions = {
+rb_1_positions_sim = {
     "init_position": [0.020047, -0.020043, -0.019467, 1.000000],
     "loading_position": [5.653875, -0.186439, -0.746498, 0.665388],
     "face_shipping_position": [2.552175, -0.092728, 0.715685, 0.698423]}
 
+rb_1_positions_lab = {
+    # "init_position": [0.054368, 0.060027, -0.000433, 1.0000],
+    "init_position": [-0.024829, -0.104199, 0.002651, 1.0000],       # actual
+    "loading_position": [4.472548, -0.187311, -0.694903, 0.719103],
+    "face_shipping_position": [1.879749, 0.141987, 0.656541, 0.754290]
+}
+
+rb_1_positions = rb_1_positions_lab
 
 def main():
     init_position = "init_position"
