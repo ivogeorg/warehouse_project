@@ -175,8 +175,10 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
    4. Keep-out zone filters, one for sim map, and one for lab map. _What configuration can be done here that can be dictated by the value of the `use_sim_time` argument?_
 4. Rewrite `cart_pick_up` service. Main script should contain client.
    1. Action sequence:
+
       1. Detect the reflective plates (and the supporting rods behind them). _Note that the sim cart and real lab cart are different!_
       2. Align robot with cart frame. _Robot centroid should lie on the line through the lengthwise axis of the cart._
+
       3. Calculate `cart_frame` and `cart_center_frame` relative to `robot_front_laser_base_link`.
       4. Publish `cart_frame` and `cart_center_frame`.
       5. Using the TF between `robot_base_link` and `cart_frame`, approach slowly `cart_frame`.
@@ -202,9 +204,9 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 #### Generalized TODO
 
-1. (`attach_shelf`) Face the crate straight in.
-3. (`attach_shelf`) Broadcast cart-related TFs.
-4. (`nav2_apps`) `move` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
+1. (`nav2_apps`) `move` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
+
+2. (`attach_shelf`) Face the crate straight in (`move`).
 4. (`attach_shelf`) Approach, go under and pick up crate (`move`).
 5. (`attach_shelf`) Set crate down and back up to global TF (`move`).
 6. (`nav2_apps`) `BasicNavigator.goToPose` and `BasicNavigator.goThroughPoses`.

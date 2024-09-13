@@ -1,6 +1,9 @@
 move_cart_to_ship:
   ros__parameters:
     # format [position.x, position.y, orientation.z, orientation.w]
+    # TODO: Need the names as strings, otherwise, too much 
+    #       infrastructure code. How to define and get a dictionary
+    #       parameter?
     init_position: [0.020047, -0.020043, -0.019467, 1.000000]
     loading_position: [5.653875, -0.186439, -0.746498, 0.665388]
     face_shipping_position: [2.552175, -0.092728, 0.715685, 0.698423]
