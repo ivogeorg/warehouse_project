@@ -204,16 +204,19 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 #### Generalized TODO
 
-1. (`attach_shelf`) Add `tf_ship_pos` for `cart_set_down` to handle the incomplete pose rotation of `BasicNavigator.goToPose`. 
+1. (`attach_shelf`) Add `rotate` to `tf_ship_pos` for `cart_set_down` to handle the incomplete pose rotation of `BasicNavigator.goToPose`. 
 
-2. (`nav2_apps`) `move` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
-3. (`attach_shelf`) Face the crate straight in (`move`).
-4. (`attach_shelf`) Approach, go under and pick up crate (`move`).
-5. (`attach_shelf`) Set crate down and back up to global TF (`move`).
-6. (`nav2_apps`) `BasicNavigator.goThroughPoses`.
+2. (`nav2_apps`) `go_to_frame` based on `lookupTransform` and publishing of `Twist` messages based on the TF. See [uses of `lookupTransform`](https://github.com/ivogeorg/attach_shelf/blob/main/README.md#104-uses-of-lookuptransform).
+3. (`attach_shelf`) Face the crate straight in (`go_to_frame`).
+4. (`attach_shelf`) Approach, go under and pick up crate (`go_to_frame`).
+5. (`attach_shelf`) Set crate down and back up to a global fixed TF (`go_to_frame`).
+6. ~(`nav2_apps`) `BasicNavigator.goThroughPoses`.~
+   1. Only one potential use, for `face_shipping_position` and `shipping_position`.
+   2. With incomplete pose rotations it is safer to use a service for moving from `face_shipping_position` to `shipping_position` and back.
+   3. So, `BasicNavigator.goToPose`.
 7. (`nav2_apps`) Set `Polygon` footprint for robot with and without cart.
 8. (`map_server`) Define keepout zones. Mind the value range [0, 100].
 9. (`attach_shelf`) Consume parameters of different types in C++ `rclcpp::Node`.
 10. (`nav2_apps`) Consume parameters of different types in Python `rclpy::Node`.
-11. (`nav2_apps`) Precise automatic localization.
+11. (`nav2_apps`) Precise automatic localization. For testing, in [`cart_approach.cpp](attach_shelf/src/cart_approach.cpp), otherwise in [`move_cart_to_ship`](nav2_apps/nav2_apps/move_cart_to_ship.py).
 
