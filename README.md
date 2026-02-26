@@ -13,7 +13,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       ```
       cd ~/ros2_ws/src
       git clone https://github.com/ivogeorg/warehouse_project.git
-      git checkout path-planning
+      git checkout new-checkpoint-12
       cd ~/ros2_ws
       rm -fr build install log 
       colcon build --clean
@@ -49,7 +49,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       ros2 launch path_planner_server navigation.launch.py map_file:=warehouse_map_real.yaml
       ```
 2. Notes
-   1. The working implementation is on the branch `path-planning`. Please, do `git checkout` before building and running.
+   1. The working implementation is on the branch `new-checkpoint-12`. Please, do `git checkout` before building and running.
    2. Each of the launches includes an Rviz2 node configured for it.
    3. The Path Planner Server has an integraged launch file called `navigation.launch.py` which includes the `map_server`, `amcl`, `planner_server`, `controller_server`, `behavior_server`, and `bt_navigator` node, along with a lifecycle manager node.
    4. All launches are auto-configured for the simulator or the lab depending on the value of the `use_sim_time` argument.
