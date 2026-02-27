@@ -56,7 +56,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/diffbot_base_controller/cmd_vel_unstamped
       ```
 2. Notes
-   1. The working implementation is on the branch `new-checkpoint-12`. Please, do `git checkout` before building and running.
+   1. The working implementation is on the branch `new-checkpoint-12`. Please, do `git checkout` before building and running. If a fresh clone, run in the git root: `git submodule update --remote --recursive`. This ensures the `attach_shelf` submodule is also fetched and updated.
    2. Each of the launches includes an Rviz2 node configured for it.
    3. The Path Planner Server has an integraged launch file called `navigation.launch.py` which includes the `map_server`, `amcl`, `planner_server`, `controller_server`, `behavior_server`, and `bt_navigator` node, along with a lifecycle manager node.
    4. All launches are auto-configured for the simulator or the lab depending on the value of the `use_sim_time` argument.
