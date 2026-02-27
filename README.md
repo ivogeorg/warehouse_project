@@ -10,7 +10,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
 
 1. Launching
    1. Preliminaries
-      ```
+      ```bash
       cd ~/ros2_ws/src
       git clone https://github.com/ivogeorg/warehouse_project.git
       git checkout new-checkpoint-12
@@ -25,28 +25,35 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
       3. It also controls which config files the nodes will use, for the simulator (`use_sim_time:=true`) or the real-robot lab (`use_sim_time:=false`) environment.
       4. The default is `true`, that is, for the **simulator** environment. For the **lab**, please add `use_sim_time:=false` to the launch on the command line.
    3. Cartographer SLAM
-      ```
+      ```bash
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch cartographer_slam cartographer.launch.py
       ```
    4. Map server
-      ```
+      ```bash
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch map_server map_server.launch.py map_file:=warehouse_map_real.yaml
       ```
    5. Localization server
-      ```
+      ```bash
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch localization_server localization.launch.py map_file:=warehouse_map_real.yaml
       ```
    6. Navigation (aka Path planner server)
-      ```
+      ```bash
       cd ~/ros2_ws
       source install/setup.bash
       ros2 launch path_planner_server navigation.launch.py map_file:=warehouse_map_real.yaml
+      ```
+   7. Gazebo simulator & keyboard controller (Note: Focus on terminal where `teleop` was run)
+      ```bash
+      source ~/sim_ws/install/setup.bash
+      ros2 launch the_construct_office_gazebo_warehouse warehouse_rb.launch.xml
+      cd ~/ros2_ws/src/warehouse_project
+      ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/diffbot_base_controller/cmd_vel_unstamped
       ```
 2. Notes
    1. The working implementation is on the branch `new-checkpoint-12`. Please, do `git checkout` before building and running.
