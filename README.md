@@ -51,7 +51,7 @@ Robot navigation around a simulated and real lab space with the [Robotnik RB1-Ba
    7. Gazebo simulator & keyboard controller (Note: Focus on terminal where `teleop` was run)
       ```bash
       source ~/sim_ws/install/setup.bash
-      ros2 launch the_construct_office_gazebo_warehouse warehouse_rb.launch.xml
+      ros2 launch the_construct_office_gazebo warehouse_rb1.launch.xml
       cd ~/ros2_ws/src/warehouse_project
       ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=/diffbot_base_controller/cmd_vel_unstamped
       ```
